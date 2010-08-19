@@ -1,0 +1,132 @@
+#!/usr/bin/python
+
+import roslib; roslib.load_manifest('joint_controller')
+import rospy
+import wx
+import xml.dom.minidom
+from sensor_msgs.msg import JointState
+
+RANGE = 1000
+
+class JointController(wx.Frame):
+	def __init__(self, parent, id, title):
+		self.dependent_joints = rospy.get_param("dependent_joints", {})
+		(self.free_joints, self.fixed_joints, ordered_joints) = self.getFreeJoints()
+		
+		wx.Frame.__init__(self, parent, id, title, (-1, -1));
+		panel = wx.Panel(self, wx.ID_ANY);
+		box = wx.BoxSizer(wx.VERTICAL)
+		font = wx.Font(9, wx.SWISS, wx.NORMAL, wx.BOLD)
+		
+		### Sliders ###
+		for name in ordered_joints:
+			joint = self.free_joints[name]
+			row = wx.GridSizer(1,2)
+			label = wx.StaticText(panel, -1, name)
+			label.SetFont(font)
+			row.Add(label, 1, wx.ALIGN_CENTER_VERTICAL)
+
+			display = wx.TextCtrl (panel, value=str(0), style=wx.TE_READONLY | wx.ALIGN_RIGHT)
+
+			row.Add(display, flag= wx.ALIGN_RIGHT| wx.ALIGN_CENTER_VERTICAL)
+			box.Add(row, 1, wx.EXPAND)
+			slide = wx.Slider(panel, -1, RANGE/2, 0, RANGE, style= wx.SL_AUTOTICKS | wx.SL_HORIZONTAL)
+			slide.SetFont(font)
+			box.Add(slide, 1, wx.EXPAND)
+
+			joint['display'] = display
+			joint['slider'] = slide		
+
+		### Buttons ###
+		self.ctrbutton = wx.Button(panel, 1, 'Center')
+		self.Bind(wx.EVT_SLIDER, self.sliderUpdate)
+		
+		wx.EVT_BUTTON(self, 1, self.center)
+
+		box.Add(self.ctrbutton, 0, wx.EXPAND)
+		
+		panel.SetSizer(box)
+		self.Center()
+		
+		self.pub = rospy.Publisher('joint_states', JointState)
+		
+		box.Fit(self)
+		self.publish()
+
+	def getFreeJoints(self):
+		description = rospy.get_param("robot_description")
+		robot = xml.dom.minidom.parseString(description).getElementsByTagName('robot')[0]
+		joints = {}
+		fixed_joints = {}
+		ordered_joints = []
+		
+		for child in robot.childNodes:
+			if child.nodeType is child.TEXT_NODE:
+				continue
+			if child.localName == 'joint':
+				jtype = child.getAttribute('type')
+				if jtype == 'fixed':
+					continue
+				name = child.getAttribute('name')
+				if jtype == 'continuous':
+					minval = -3.1415
+					maxval = 3.1415
+				else:
+					limit = child.getElementsByTagName('limit')[0]
+					minval = float(limit.getAttribute('lower'))
+					maxval = float(limit.getAttribute('upper'))
+				if minval == maxval:
+					fixed_joints[name] = minval
+					continue
+				if name in self.dependent_joints:
+					continue
+				zeroval = (int)(-minval * RANGE / (maxval - minval))
+				joint = {'min':minval, 'max':maxval, 'zero':zeroval, 'slidervalue':zeroval, 'value':0 }
+				joints[name] = joint
+				ordered_joints.append(name)
+		return (joints, fixed_joints, ordered_joints)
+
+	def center(self, event):
+		rospy.loginfo("Centering")
+		for (name,joint) in self.free_joints.items():
+			joint['slidervalue'] = joint['zero'] 
+		self.publish()
+
+	def sliderUpdate(self, event):
+		for (name,joint) in self.free_joints.items():
+			joint['slidervalue'] = joint['slider'].GetValue()
+		self.publish()
+
+	def publish(self):
+		msg = JointState()
+		msg.header.stamp = rospy.Time.now()
+
+		for (name,joint) in self.free_joints.items():
+			msg.name.append(str(name))
+			purevalue = joint['slidervalue']
+			pctvalue = purevalue / float( RANGE)
+			value = joint['min'] + (joint['max']-joint['min']) * pctvalue
+			joint['value'] = value
+			msg.position.append(value)
+			joint['slider'].SetValue(purevalue)
+			joint['display'].SetValue("%.2f"%value)
+		for (name,value) in self.fixed_joints.items():
+			msg.name.append(str(name))
+			msg.position.append(value)
+		for (name,param) in self.dependent_joints.items():
+			msg.name.append(str(name))
+			parent = param['parent']
+			baseval = self.free_joints[parent]['value']
+			value = baseval * param.get('factor', 1)
+			msg.position.append(value)
+		self.pub.publish(msg)
+
+if __name__ == '__main__':
+	try:
+		rospy.init_node('joint_controller')
+		app = wx.App()
+		gui = JointController(None, -1, "Joint Controller")
+		gui.Show()
+		app.MainLoop()
+	except rospy.ROSInterruptException: pass
+

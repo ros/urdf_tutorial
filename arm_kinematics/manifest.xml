@@ -1,0 +1,20 @@
+<package>
+  <description brief="arm_kinematics">
+
+     arm_kinematics
+
+  </description>
+  <author>David Lu!!</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/arm_kinematics</url>
+  <depend package="roscpp"/>
+  <depend package="tf"/>
+  <depend package="sensor_msgs"/>
+  <depend package="tf_conversions"/>
+  <depend package="kdl_parser"/>
+  <depend package="kinematics_msgs"/>
+
+</package>
+
+

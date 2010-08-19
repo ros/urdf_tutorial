@@ -1,0 +1,9 @@
+<stack>
+  <description brief="urdf_tools">urdf_tools</description>
+  <author>Maintained by David Lu!!</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/urdf_tools</url>
+  <depend stack="ros" />
+
+</stack>

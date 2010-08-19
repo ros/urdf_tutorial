@@ -1,0 +1,14 @@
+<package>
+  <description brief="A node for inputting joint angles directly">
+	A node for inputting joint angles directly
+  </description>
+  <author>David Lu!!</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/joint_controller</url>
+  <depend package="rospy" />
+  <depend package="sensor_msgs" />
+  <rosdep name="wxpython" />
+</package>
+
+
