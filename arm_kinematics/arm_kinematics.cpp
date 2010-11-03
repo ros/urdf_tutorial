@@ -244,6 +244,7 @@ bool Kinematics::getPositionIK(kinematics_msgs::GetPositionIK::Request &request,
 
     geometry_msgs::PoseStamped pose_msg_in = request.ik_request.pose_stamped;
     tf::Stamped<tf::Pose> transform;
+    tf::Stamped<tf::Pose> transform_root;
     tf::poseStampedMsgToTF( pose_msg_in, transform );
 
     //Do the IK
@@ -259,9 +260,17 @@ bool Kinematics::getPositionIK(kinematics_msgs::GetPositionIK::Request &request,
         }
     }
 
-    // populate F_dest from tf::Transform parameter
+    //Convert F to our root_frame
+    try {
+        tf_listener.transformPose(root_name, transform, transform_root);
+    } catch (...) {
+        ROS_ERROR("Could not transform IK pose to frame: %s", root_name.c_str());
+        response.error_code.val = response.error_code.FRAME_TRANSFORM_FAILURE;
+       return false;
+    }
+
     KDL::Frame F_dest;
-    tf::TransformTFToKDL(transform, F_dest);
+    tf::TransformTFToKDL(transform_root, F_dest);
 
     int ik_valid = ik_solver_pos->CartToJnt(jnt_pos_in, F_dest, jnt_pos_out);
 
