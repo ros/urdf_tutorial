@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+	 xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+	 xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+	 xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+	 name="r2d2">
+
+	<xacro:property name="width" value=".2" />
+	<xacro:property name="leglen" value=".6" />
+	<xacro:property name="polelen" value=".2" />
+	<xacro:property name="bodylen" value=".6" />
+	<xacro:property name="baselen" value=".4" />
+	<xacro:property name="wheeldiam" value=".07" />
+	<xacro:property name="pi" value="3.1415" />
+
+	<xacro:macro name="default_inertial" params="mass">
+		<inertial>
+      			<mass value="${mass}" />
+		        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+			         iyy="1.0" iyz="0.0"
+			         izz="1.0" />
+		</inertial>
+	</xacro:macro>
+
+	<link name="base_link">
+		<visual>
+			<geometry>
+				<cylinder radius="${width}" length="${bodylen}"/>
+			</geometry>
+			<material name="blue">
+				<color rgba="0 0 .8 1"/>
+			</material>
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder radius="${width}" length="${bodylen}"/>
+			</geometry>
+		</collision>
+		<xacro:default_inertial mass="10"/>
+	</link>
+
+	<xacro:macro name="wheel" params="prefix suffix reflect">
+		<link name="${prefix}_${suffix}_wheel">
+			<visual>
+				<geometry>
+					<cylinder radius="${wheeldiam/2}" length=".1"/>
+				</geometry>
+				<material name="black">
+					<color rgba="0 0 0 1"/>
+				</material>
+			</visual>
+			<collision>
+				<geometry>
+					<cylinder radius="${wheeldiam/2}" length=".1"/>
+				</geometry>
+			</collision>
+			<xacro:default_inertial mass="1"/>
+		</link>
+		<joint name="${prefix}_${suffix}_wheel_joint" type="continuous">
+			<axis xyz="0 0 1"/>
+			<parent link="${prefix}_base"/>
+			<child link="${prefix}_${suffix}_wheel"/>
+			<origin xyz="0 ${baselen*reflect/3} -${wheeldiam/2+.05}" rpy="0 ${pi/2} 0"/>
+      			<limit effort="100" velocity="100" />
+			<joint_properties damping="0.0" friction="0.0" />
+
+		</joint>
+	    <gazebo reference="${prefix}_${suffix}_wheel" >
+	      <mu1>50.0</mu1>
+	      <mu2>50.0</mu2>
+	      <kp>100000000.0</kp>
+	      <kd>1.0</kd>
+	      <material>Gazebo/Fish</material>
+	    </gazebo>
+
+	</xacro:macro>
+
+ 
+
+	<xacro:macro name="leg" params="prefix reflect">
+		<link name="${prefix}_leg">
+			<visual>
+				<geometry>
+					<box size="${leglen} .2 .1"/>
+				</geometry>
+				<origin xyz="0 0 -${leglen/2}" rpy="0 ${pi/2} 0"/>
+				<material name="white">
+					<color rgba="1 1 1 1"/>
+				</material>
+			</visual>
+			<collision>
+				<geometry>
+					<box size="${leglen} .2 .1"/>
+				</geometry>
+				<origin xyz="0 0 -${leglen/2}" rpy="0 ${pi/2} 0"/>
+			</collision>
+			<xacro:default_inertial mass="10"/>
+		</link>
+
+		<joint name="base_to_${prefix}_leg" type="fixed">
+			<parent link="base_link"/>
+			<child link="${prefix}_leg"/>
+			<origin xyz="${reflect*(width+.02)} 0 .25" />
+		</joint>
+
+		<link name="${prefix}_base">
+			<visual>
+				<geometry>
+					<box size=".1 ${baselen} .1"/>
+				</geometry>
+				<material name="white"/>
+			</visual>
+			<collision>
+				<geometry>
+					<box size=".1 ${baselen} .1"/>
+				</geometry>
+			</collision>
+			<xacro:default_inertial mass="10"/>
+		</link>
+
+		<joint name="${prefix}_base_joint" type="fixed">
+			<parent link="${prefix}_leg"/>
+			<child link="${prefix}_base"/>
+			<origin xyz="0 0 ${-leglen}" />
+		</joint>
+		<xacro:wheel prefix="${prefix}" suffix="front" reflect="1"/>
+		<xacro:wheel prefix="${prefix}" suffix="back" reflect="-1"/>
+	</xacro:macro>
+	<xacro:leg prefix="right" reflect="1" />
+	<xacro:leg prefix="left" reflect="-1" />
+
+	<joint name="gripper_extension" type="prismatic">
+		<parent link="base_link"/>
+		<child link="gripper_pole"/>
+    		<limit effort="1000.0" lower="-${width*2-.02}" upper="0" velocity="0.5"/>
+		<origin rpy="0 0 ${pi/2}" xyz="0 ${width-.01} .2"/>
+	</joint>
+
+	<link name="gripper_pole">
+		<visual>
+			<geometry>
+				<cylinder length="${polelen}" radius=".01"/>
+			</geometry>
+			<origin xyz="${polelen/2} 0 0" rpy="0 ${pi/2} 0 "/>
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${polelen}" radius=".01"/>
+			</geometry>
+			<origin xyz="${polelen/2} 0 0" rpy="0 ${pi/2} 0 "/>
+		</collision>
+		<xacro:default_inertial mass=".05"/>
+	</link>
+	
+	<xacro:macro name="gripper" params="prefix reflect">
+		<joint name="${prefix}_gripper_joint" type="revolute">
+			<axis xyz="0 0 ${reflect}"/>
+			<limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
+			<origin rpy="0 0 0" xyz="${polelen} ${reflect*0.01} 0"/>
+			<parent link="gripper_pole"/>
+			<child link="${prefix}_gripper"/>
+		</joint>
+		<link name="${prefix}_gripper">
+			<visual>
+     				<origin rpy="${(reflect-1)/2*pi} 0 0" xyz="0 0 0"/>
+				<geometry>
+					<mesh filename="package://pr2_description/meshes/gripper_v0/l_finger.dae"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename="package://pr2_description/meshes/gripper_v0/l_finger.dae"/>
+				</geometry>
+     				<origin rpy="${(reflect-1)/2*pi} 0 0" xyz="0 0 0"/>
+			</collision>
+			<xacro:default_inertial mass=".05"/>
+		</link>
+		<joint name="${prefix}_tip_joint" type="fixed">
+			<parent link="${prefix}_gripper"/>
+			<child link="${prefix}_tip"/>
+		</joint>
+		<link name="${prefix}_tip">
+			<visual>
+     				<origin rpy="${(reflect-1)/2*pi} 0 0" xyz="0.09137 0.00495 0"/>
+				<geometry>
+					<mesh filename="package://pr2_description/meshes/gripper_v0/l_finger_tip.dae"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename="package://pr2_description/meshes/gripper_v0/l_finger_tip.dae"/>
+				</geometry>
+     				<origin rpy="${(reflect-1)/2*pi} 0 0" xyz="0.09137 0.00495 0"/>
+			</collision>
+			<xacro:default_inertial mass=".05"/>
+		</link>
+	</xacro:macro>
+	<xacro:gripper prefix="left" reflect="1" />
+	<xacro:gripper prefix="right" reflect="-1" />
+
+	<link name="head">
+		<visual>
+			<geometry>
+				<sphere radius="${width}"/>
+			</geometry>
+			<material name="white"/>
+		</visual>
+		<collision>
+			<geometry>
+				<sphere radius="${width}"/>
+			</geometry>
+		</collision>
+		<xacro:default_inertial mass="10"/>
+	</link>
+
+	<joint name="head_swivel" type="continuous">
+		<parent link="base_link"/>
+		<child link="head"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 ${bodylen/2}"/>
+	</joint>
+
+	<link name="box">
+		<visual>
+			<geometry>
+				<box size=".08 .08 .08"/>
+			</geometry>
+			<material name="blue"/>
+		</visual>
+		<collision>
+			<geometry>
+				<box size=".08 .08 .08"/>
+			</geometry>
+		</collision>
+		<xacro:default_inertial mass="1"/>
+	</link>
+	
+	<joint name="tobox" type="fixed">
+		<parent link="head"/>
+		<child link="box"/>
+		<origin xyz="0 ${.707*width} ${.707*width}"/>
+	</joint>
+
+  <gazebo>
+    <controller:differential_position2d name="controller1">
+      <update>100</update>
+      <leftJoint>left_back_wheel_joint</leftJoint>
+      <rightJoint>right_back_wheel_joint</rightJoint>
+      <wheelSeparation>${width}</wheelSeparation>
+      <wheelDiameter>${wheeldiam}</wheelDiameter>
+      <torque>5</torque>
+      <interface:position name="position_iface_0"/>
+    </controller:differential_position2d>
+  
+    <controller:gazebo_ros_p3d name="p3d_base_controller" plugin="libgazebo_ros_p3d.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100.0</updateRate>
+      <bodyName>base_link</bodyName>
+      <topicName>base_pose_ground_truth</topicName>
+      <gaussianNoise>0.01</gaussianNoise>
+      <frameName>map</frameName>
+      <xyzOffsets>25.7 25.7 0</xyzOffsets> <!-- initialize odometry for fake localization-->
+      <rpyOffsets>0 0 0</rpyOffsets>
+      <interface:position name="p3d_base_position"/>
+    </controller:gazebo_ros_p3d>
+
+    <!-- this publishes empty joint_states due to no transmission, but
+         triggering robot_state_puublisher to publish tf between fixed joints in erratic,
+         (e.g. base_laser_link for the base_scan frame) -->
+    <controller:gazebo_ros_controller_manager name="gazebo_ros_controller_manager" plugin="libgazebo_ros_controller_manager.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>1000.0</updateRate>
+      <interface:audio name="gazebo_ros_controller_manager_dummy_iface" />
+    </controller:gazebo_ros_controller_manager>
+  </gazebo>
+</robot>
+

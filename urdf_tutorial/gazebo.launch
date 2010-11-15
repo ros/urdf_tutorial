@@ -1,0 +1,24 @@
+<launch>
+  <!-- this launch file corresponds to robot model in ros-pkg/robot_descriptions/pr2/erratic_defs/robots for full erratic -->
+  <!-- start up wg world -->
+  <include file="$(find gazebo_worlds)/launch/wg_world.launch"/>
+
+  <!-- Create a transform sender for linking these frames. -->
+  <node name="tf_footprint_base" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 base_link base_footprint 40" />	
+
+  <arg name="model" />
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_erratic" pkg="gazebo_tools" type="gazebo_model" args="-z 1.051 -p robot_description spawn robot_description" respawn="false" output="screen" />
+
+  <!-- Controller Manager -->
+  <include file="$(find pr2_controller_manager)/controller_manager.launch" />
+
+  <!-- Fake Calibration -->
+  <node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub /calibrated std_msgs/Bool true" />
+
+  <!-- load controllers -->
+  <node name="diffdrive" pkg="gazebo_plugins" type="gazebo_ros_diffdrive" respawn="true" output="screen"/>
+</launch>
+

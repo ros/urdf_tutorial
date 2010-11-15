@@ -1,0 +1,14 @@
+<package>
+  <description brief="urdf_tutorial">
+
+     urdf_tutorial
+
+  </description>
+  <author>Lu David </author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/urdf_tutorial</url>
+
+</package>
+
+
