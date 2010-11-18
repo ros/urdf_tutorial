@@ -1,8 +1,7 @@
 <package>
-  <description brief="arm_kinematics">
-
-     arm_kinematics
-
+  <description brief="A generic package for computing Arm Kinematics">
+    A generic package for computing both forward and backward kinematics for arms.
+    Developed as an alternative to pr2_arm_kinematics for people not using the PR2. 
   </description>
   <author>David Lu!!</author>
   <license>BSD</license>

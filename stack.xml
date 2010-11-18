@@ -1,5 +1,5 @@
 <stack>
-  <description brief="urdf_tools">urdf_tools</description>
+  <description brief="Tools for use with URDF Models">This package contains a number of tools for making, viewing and using URDF models.</description>
   <author>Maintained by David Lu!!</author>
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
