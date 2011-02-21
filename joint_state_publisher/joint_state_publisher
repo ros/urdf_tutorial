@@ -10,13 +10,22 @@ from threading import Thread
 
 RANGE = 10000
 
+def get_param(name, value=None):
+    private = "~%s" % name
+    if rospy.has_param(private):
+        return rospy.get_param(private)
+    elif rospy.has_param(name):
+        return rospy.get_param(name)
+    else:
+        return value
+
 class JointStatePublisher():
     def __init__(self):
-        description = rospy.get_param("robot_description")
+        description = get_param('robot_description')
         robot = xml.dom.minidom.parseString(description).getElementsByTagName('robot')[0]
         self.free_joints = {}
         self.joint_list = [] # for maintaining the original order of the joints
-        self.dependent_joints = rospy.get_param("dependent_joints", {})
+        self.dependent_joints = get_param("dependent_joints", {})
         
         # Find all non-fixed joints
         for child in robot.childNodes:
@@ -46,10 +55,36 @@ class JointStatePublisher():
                 self.free_joints[name] = joint
                 self.joint_list.append(name)
 
+        use_gui = get_param("use_gui", False)
+
+        if use_gui:
+            app = wx.App()
+            self.gui = JointStatePublisherGui("Joint State Publisher", self)
+            self.gui.Show()
+            Thread(target=app.MainLoop).start()
+        else:
+            self.gui = None
+
+        source_list = get_param("source_list", [])
+        self.sources = []
+        for source in source_list:
+            self.sources.append(rospy.Subscriber(source, JointState, self.source_cb))
+
         self.pub = rospy.Publisher('joint_states', JointState)
 
+    def source_cb(self, msg):
+        for i in range(len(msg.name)):
+            name = msg.name[i]
+            position = msg.position[i]
+            if name in self.free_joints:
+                joint = self.free_joints[name]
+                joint['value'] = position
+        if self.gui is not None:
+            self.gui.update_sliders()
+        
+
     def loop(self):
-        hz = rospy.get_param("rate", 10) # 10hz
+        hz = get_param("rate", 10) # 10hz
         r = rospy.Rate(hz) 
 
         # Publish Joint States
@@ -129,8 +164,14 @@ class JointStatePublisherGui(wx.Frame):
             joint = joint_info['joint']
             value = self.sliderToValue(purevalue, joint)
             joint['value'] = value
-            joint_info['slider'].SetValue(purevalue)
-            joint_info['display'].SetValue("%.2f"%value)
+        self.update_sliders()
+
+    def update_sliders(self):
+        for (name,joint_info) in self.joint_map.items():
+            joint = joint_info['joint']
+            joint_info['slidervalue'] = self.valueToSlider(joint['value'], joint)
+            joint_info['slider'].SetValue(joint_info['slidervalue'])
+            joint_info['display'].SetValue("%.2f"%joint['value'])
 
     def center_event(self, event):
         self.center()
@@ -159,14 +200,6 @@ if __name__ == '__main__':
     try:
         rospy.init_node('joint_state_publisher')
         jsp = JointStatePublisher()
-
-        use_gui = rospy.get_param("use_gui", False)
-        if use_gui:
-            app = wx.App()
-            gui = JointStatePublisherGui("Joint State Publisher", jsp)
-            gui.Show()
-            Thread(target=app.MainLoop).start()
-        
         jsp.loop()
         
     except rospy.ROSInterruptException: pass
