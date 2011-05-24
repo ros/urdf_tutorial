@@ -3,11 +3,7 @@
   <author>Maintained by David Lu!!</author>
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/urdf_tools</url>
-  <depend stack="common_msgs" /> <!-- sensor_msgs -->
-  <depend stack="geometry" /> <!-- tf, tf_conversions -->
-  <depend stack="kinematics" /> <!-- kinematics_msgs -->
-  <depend stack="robot_model" /> <!-- robot_state_publisher, urdf, kdl_parser -->
-  <depend stack="ros" /> <!-- rospy, roscpp -->
+  <url>http://ros.org/wiki/robot_model_tutorials</url>
+  <depend stack="ros" />
 
 </stack>
