@@ -1,5 +1,5 @@
 <package> 
-  <name>robot_model_tutorials</name>
+  <name>urdf_tutorial</name>
   <version>0.2.0</version>
 
   <description>This package contains a number of URDF tutorials.</description>
@@ -8,7 +8,7 @@
   <maintainer email="isucan@willowgarage.com">Ioan Sucan</maintainer>
 
   <license>BSD</license>  
-  <url>http://ros.org/wiki/robot_model_tutorials</url>
+  <url>http://ros.org/wiki/urdf_tutorial</url>
 
   <buildtool_depend>catkin</buildtool_depend>
 
