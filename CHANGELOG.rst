@@ -2,8 +2,8 @@
 Changelog for package urdf_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.2 (2013-12-16)
+------------------
 * Merge pull request `#5 <https://github.com/ros/urdf_tutorial/issues/5>`_ from gavanderhoorn/issue4_missing_robot_model_display
   Fix issue `#4 <https://github.com/ros/urdf_tutorial/issues/4>`_: missing RobotModel display
 * Make roslaunch stop all nodes on RViz exit.
