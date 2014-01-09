@@ -2,8 +2,8 @@
 Changelog for package urdf_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.3 (2014-01-09)
+------------------
 * Merge pull request `#7 <https://github.com/ros/urdf_tutorial/issues/7>`_ from gavanderhoorn/issue6_source_vs_devel_vs_install
   Fix issue `#6 <https://github.com/ros/urdf_tutorial/issues/6>`_: No robot model when using display.launch (again)
 * Setup new directory structure and move files around.
