@@ -3,9 +3,10 @@
   <version>0.2.3</version>
 
   <description>This package contains a number of URDF tutorials.</description>
-  <author>David Lu!!</author>
+  <author>David V. Lu!!</author>
 
   <maintainer email="isucan@willowgarage.com">Ioan Sucan</maintainer>
+  <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
 
   <license>BSD</license>  
   <url>http://ros.org/wiki/urdf_tutorial</url>
@@ -15,5 +16,10 @@
   <build_depend>urdf</build_depend>
 
   <run_depend>urdf</run_depend>
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>pr2_description</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>xacro</run_depend>
 
 </package>
