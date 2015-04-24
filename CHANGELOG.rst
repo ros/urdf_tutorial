@@ -2,8 +2,8 @@
 Changelog for package urdf_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.4 (2015-04-24)
+------------------
 * Maintainer list changes
 * Add .rviz as an arg
 * fix gazebo.launch for indigo, update to new package name
