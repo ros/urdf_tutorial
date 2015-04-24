@@ -2,6 +2,14 @@
 Changelog for package urdf_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Maintainer list changes
+* Add .rviz as an arg
+* fix gazebo.launch for indigo, update to new package name
+* Add run depends
+* Contributors: David V. Lu, Ioan A Sucan, Isaac IY Saito, Kei Okada
+
 0.2.3 (2014-01-09)
 ------------------
 * Merge pull request `#7 <https://github.com/ros/urdf_tutorial/issues/7>`_ from gavanderhoorn/issue6_source_vs_devel_vs_install
