@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="model" />
+  <arg name="model" default="$(find urdf_tutorial)/urdf/r2d2.xacro"/>
   <arg name="rvizconfig" default="$(find urdf_tutorial)/urdf.rviz" />
 
   <include file="$(find urdf_tutorial)/launch/gazebo.launch">
@@ -16,7 +16,10 @@
   <!-- This node loads the two controllers into a controller manager (real or simulated). The
   controllers are defined in config/control.yaml -->
   <node name="r2d2_controller_spawner" pkg="controller_manager" type="spawner"
-    args="r2d2_joint_state_controller r2d2_diff_drive_controller
-          r2d2_head_controller r2d2_gripper_controller --shutdown-timeout 3"/>
+    args="r2d2_joint_state_controller
+          r2d2_diff_drive_controller
+          r2d2_head_controller
+          r2d2_gripper_controller
+          --shutdown-timeout 3"/>
 
 </launch>

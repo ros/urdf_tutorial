@@ -1,14 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(urdf_tutorial)
 
-find_package(catkin)
+find_package(catkin REQUIRED roslaunch)
 catkin_package()
 
-foreach(dir images launch urdf)
-  install(DIRECTORY ${dir}/
-    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
-endforeach(dir)
+roslaunch_add_file_check(launch)
 
-install(
-  FILES urdf.rviz urdf.vcg
+install(DIRECTORY config images launch rviz urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
