@@ -1,4 +1,4 @@
-<package> 
+<package>
   <name>urdf_tutorial</name>
   <version>0.2.3</version>
 
@@ -8,7 +8,7 @@
   <maintainer email="isucan@willowgarage.com">Ioan Sucan</maintainer>
   <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
 
-  <license>BSD</license>  
+  <license>BSD</license>
   <url>http://ros.org/wiki/urdf_tutorial</url>
 
   <buildtool_depend>catkin</buildtool_depend>
@@ -17,6 +17,7 @@
 
   <run_depend>urdf</run_depend>
   <run_depend>joint_state_publisher</run_depend>
+  <run_depend>position_controllers</run_depend>
   <run_depend>pr2_description</run_depend>
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>rviz</run_depend>
