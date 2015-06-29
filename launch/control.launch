@@ -22,4 +22,9 @@
           r2d2_gripper_controller
           --shutdown-timeout 3"/>
 
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+
+    <param name="default_topic" value="/r2d2_diff_drive_controller/cmd_vel"/>
+  </node>
+
 </launch>
