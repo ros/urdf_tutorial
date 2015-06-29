@@ -1,10 +1,12 @@
 <launch>
+
   <!-- these are the arguments you can pass this launch file, for example paused:=true -->
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
+  <arg name="model" default="$(find urdf_tutorial)/urdf/r2d2.xacro"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -15,7 +17,6 @@
     <arg name="headless" value="$(arg headless)"/>
   </include>
 
-  <arg name="model" />
   <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
@@ -27,4 +28,3 @@
   </node>
 
 </launch>
-

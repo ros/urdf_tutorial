@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="r2d2" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="roscontrol" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:property name="width" value=".2" />
   <xacro:property name="leglen" value=".6" />

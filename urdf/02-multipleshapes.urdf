@@ -11,7 +11,7 @@
   <link name="right_leg">
     <visual>
       <geometry>
-        <box size="0.6 .2 .1"/>
+        <box size="0.6 .1 .2"/>
       </geometry>
     </visual>
   </link>
@@ -22,4 +22,3 @@
   </joint>
 
 </robot>
-

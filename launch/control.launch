@@ -1,0 +1,30 @@
+<launch>
+
+  <arg name="model" default="$(find urdf_tutorial)/urdf/r2d2.xacro"/>
+  <arg name="rvizconfig" default="$(find urdf_tutorial)/urdf.rviz" />
+
+  <include file="$(find urdf_tutorial)/launch/gazebo.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+
+  <!-- This param file is where any environment-agnostic (live or simulation)
+  configuration should be loaded, including controllers -->
+  <rosparam command="load" file="$(find urdf_tutorial)/config/control.yaml" />
+
+  <!-- This node loads the two controllers into a controller manager (real or simulated). The
+  controllers are defined in config/control.yaml -->
+  <node name="r2d2_controller_spawner" pkg="controller_manager" type="spawner"
+    args="r2d2_joint_state_controller
+          r2d2_diff_drive_controller
+          r2d2_head_controller
+          r2d2_gripper_controller
+          --shutdown-timeout 3"/>
+
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+
+    <param name="default_topic" value="/r2d2_diff_drive_controller/cmd_vel"/>
+  </node>
+
+</launch>
