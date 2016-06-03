@@ -15,6 +15,7 @@
   <run_depend>controller_manager</run_depend>
   <run_depend>diff_drive_controller</run_depend>
   <run_depend>gazebo_ros</run_depend>
+  <run_depend>gazebo_ros_control</run_depend>
   <run_depend>joint_state_controller</run_depend>
   <run_depend>joint_state_publisher</run_depend>
   <run_depend>position_controllers</run_depend>
