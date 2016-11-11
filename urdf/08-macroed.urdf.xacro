@@ -53,14 +53,12 @@
           <cylinder radius="${wheeldiam/2}" length="0.1"/>
         </geometry>
         <material name="black"/>
-        <origin xyz="0 0 0" rpy="0 0 0" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
         <geometry>
           <cylinder radius="${wheeldiam/2}" length="0.1"/>
         </geometry>
-        <origin xyz="0 0 0" rpy="0 0 0" />
       </collision>
       <xacro:default_inertial mass="1"/>
     </link>
