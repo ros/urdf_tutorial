@@ -235,6 +235,7 @@
   <joint name="head_swivel" type="continuous">
     <parent link="base_link"/>
     <child link="head"/>
+    <axis xyz="0 0 1"/>
     <origin xyz="0 0 0.3"/>
   </joint>
 
