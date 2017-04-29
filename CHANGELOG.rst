@@ -2,8 +2,8 @@
 Changelog for package urdf_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.5 (2017-04-28)
+------------------
 * New ROS Control Tutorial
 * Remove dependency on pr2_description (uses local meshes instead)
 * General cleanup, bug fixes and reorganization
