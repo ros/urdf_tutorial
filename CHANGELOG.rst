@@ -2,6 +2,13 @@
 Changelog for package urdf_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* New ROS Control Tutorial
+* Remove dependency on pr2_description (uses local meshes instead)
+* General cleanup, bug fixes and reorganization
+* Contributors: David V. Lu!!, Felix Duvallet, Paul Bovbel, Thibault Kruse
+
 0.2.4 (2015-04-24)
 ------------------
 * Maintainer list changes
