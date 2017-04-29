@@ -19,7 +19,6 @@
   <run_depend>joint_state_controller</run_depend>
   <run_depend>joint_state_publisher</run_depend>
   <run_depend>position_controllers</run_depend>
-  <run_depend>pr2_description</run_depend>
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>rqt_robot_steering</run_depend>
   <run_depend>rviz</run_depend>
