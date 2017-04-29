@@ -62,7 +62,6 @@
     </visual>
   </link>
   <joint name="right_front_wheel_joint" type="fixed">
-    <axis rpy="0 0 0" xyz="0 1 0"/>
     <parent link="right_base"/>
     <child link="right_front_wheel"/>
     <origin rpy="0 0 0" xyz="0.133333333333 0 -0.085"/>
@@ -78,7 +77,6 @@
     </visual>
   </link>
   <joint name="right_back_wheel_joint" type="fixed">
-    <axis rpy="0 0 0" xyz="0 1 0"/>
     <parent link="right_base"/>
     <child link="right_back_wheel"/>
     <origin rpy="0 0 0" xyz="-0.133333333333 0 -0.085"/>
@@ -140,16 +138,14 @@
     </visual>
   </link>
   <joint name="left_back_wheel_joint" type="fixed">
-    <axis rpy="0 0 0" xyz="0 1 0"/>
     <parent link="left_base"/>
     <child link="left_back_wheel"/>
     <origin rpy="0 0 0" xyz="-0.133333333333 0 -0.085"/>
   </joint>
 
-  <joint name="gripper_extension" type="prismatic">
+  <joint name="gripper_extension" type="fixed">
     <parent link="base_link"/>
     <child link="gripper_pole"/>
-    <limit effort="1000.0" lower="-0.38" upper="0" velocity="0.5"/>
     <origin rpy="0 0 0" xyz="0.19 0 .2"/>
   </joint>
 
