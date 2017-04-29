@@ -6,5 +6,5 @@ catkin_package()
 
 roslaunch_add_file_check(launch)
 
-install(DIRECTORY config images launch rviz urdf
+install(DIRECTORY config images meshes launch rviz urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
