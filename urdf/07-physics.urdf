@@ -2,7 +2,7 @@
 <robot name="physics">
 
 <material name="blue">
-    <color rgba="0 0 .8 1"/>
+    <color rgba="0 0 0.8 1"/>
   </material>
   <material name="black">
     <color rgba="0 0 0 1"/>
@@ -32,14 +32,14 @@
   <link name="right_leg">
     <visual>
       <geometry>
-        <box size="0.6 .1 .2"/>
+        <box size="0.6 0.1 0.2"/>
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 -0.3"/>
       <material name="white"/>
     </visual>
     <collision>
       <geometry>
-        <box size="0.6 .1 .2"/>
+        <box size="0.6 0.1 0.2"/>
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 -0.3"/>
     </collision>
@@ -51,19 +51,19 @@
   <joint name="base_to_right_leg" type="fixed">
     <parent link="base_link"/>
     <child link="right_leg"/>
-    <origin xyz="0 -0.22 .25"/>
+    <origin xyz="0 -0.22 0.25"/>
   </joint>
 
   <link name="right_base">
     <visual>
       <geometry>
-        <box size="0.4 .1 .1"/>
+        <box size="0.4 0.1 0.1"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <geometry>
-        <box size="0.4 .1 .1"/>
+        <box size="0.4 0.1 0.1"/>
       </geometry>
     </collision>
     <inertial>
@@ -135,14 +135,14 @@
   <link name="left_leg">
     <visual>
       <geometry>
-        <box size="0.6 .1 .2"/>
+        <box size="0.6 0.1 0.2"/>
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 -0.3"/>
       <material name="white"/>
     </visual>
     <collision>
       <geometry>
-        <box size="0.6 .1 .2"/>
+        <box size="0.6 0.1 0.2"/>
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 -0.3"/>
     </collision>
@@ -155,19 +155,19 @@
   <joint name="base_to_left_leg" type="fixed">
     <parent link="base_link"/>
     <child link="left_leg"/>
-    <origin xyz="0 0.22 .25"/>
+    <origin xyz="0 0.22 0.25"/>
   </joint>
 
   <link name="left_base">
     <visual>
       <geometry>
-        <box size="0.4 .1 .1"/>
+        <box size="0.4 0.1 0.1"/>
       </geometry>
       <material name="white"/>
     </visual>
     <collision>
       <geometry>
-        <box size="0.4 .1 .1"/>
+        <box size="0.4 0.1 0.1"/>
       </geometry>
     </collision>
     <inertial>
@@ -240,19 +240,19 @@
     <parent link="base_link"/>
     <child link="gripper_pole"/>
     <limit effort="1000.0" lower="-0.38" upper="0" velocity="0.5"/>
-    <origin rpy="0 0 0" xyz="0.19 0 .2"/>
+    <origin rpy="0 0 0" xyz="0.19 0 0.2"/>
   </joint>
 
   <link name="gripper_pole">
     <visual>
       <geometry>
-        <cylinder length="0.2" radius=".01"/>
+        <cylinder length="0.2" radius="0.01"/>
       </geometry>
       <origin rpy="0 1.57075 0 " xyz="0.1 0 0"/>
     </visual>
     <collision>
       <geometry>
-        <cylinder length="0.2" radius=".01"/>
+        <cylinder length="0.2" radius="0.01"/>
       </geometry>
       <origin rpy="0 1.57075 0 " xyz="0.1 0 0"/>
     </collision>
@@ -392,14 +392,14 @@
   <link name="box">
     <visual>
       <geometry>
-        <box size=".08 .08 .08"/>
+        <box size="0.08 0.08 0.08"/>
       </geometry>
       <material name="blue"/>
       <origin xyz="-0.04 0 0"/>
     </visual>
     <collision>
       <geometry>
-        <box size=".08 .08 .08"/>
+        <box size="0.08 0.08 0.08"/>
       </geometry>
     </collision>
     <inertial>

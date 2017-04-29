@@ -11,7 +11,7 @@
   <link name="right_leg">
     <visual>
       <geometry>
-        <box size="0.6 .1 .2"/>
+        <box size="0.6 0.1 0.2"/>
       </geometry>
     </visual>
   </link>

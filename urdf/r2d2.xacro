@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <robot name="r2d2" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:property name="width" value=".2" />
-  <xacro:property name="leglen" value=".6" />
-  <xacro:property name="polelen" value=".2" />
-  <xacro:property name="bodylen" value=".6" />
-  <xacro:property name="baselen" value=".4" />
-  <xacro:property name="wheeldiam" value=".07" />
+  <xacro:property name="width" value="0.2" />
+  <xacro:property name="leglen" value="0.6" />
+  <xacro:property name="polelen" value="0.2" />
+  <xacro:property name="bodylen" value="0.6" />
+  <xacro:property name="baselen" value="0.4" />
+  <xacro:property name="wheeldiam" value="0.07" />
   <xacro:property name="pi" value="3.1415" />
 
   <material name="blue">
-    <color rgba="0 0 .8 1"/>
+    <color rgba="0 0 0.8 1"/>
   </material>
 
   <material name="black">
@@ -98,14 +98,14 @@
     <link name="${prefix}_leg">
       <visual>
         <geometry>
-          <box size="${leglen} .1 .2"/>
+          <box size="${leglen} 0.1 0.2"/>
         </geometry>
         <origin xyz="0 0 -${leglen/2}" rpy="0 ${pi/2} 0"/>
         <material name="white"/>
       </visual>
       <collision>
         <geometry>
-          <box size="${leglen} .1 .2"/>
+          <box size="${leglen} 0.1 0.2"/>
         </geometry>
         <origin xyz="0 0 -${leglen/2}" rpy="0 ${pi/2} 0"/>
       </collision>
@@ -115,19 +115,19 @@
     <joint name="base_to_${prefix}_leg" type="fixed">
       <parent link="base_link"/>
       <child link="${prefix}_leg"/>
-      <origin xyz="0 ${reflect*(width+.02)} .25" />
+      <origin xyz="0 ${reflect*(width+.02)} 0.25" />
     </joint>
 
     <link name="${prefix}_base">
       <visual>
         <geometry>
-          <box size="${baselen} .1 .1"/>
+          <box size="${baselen} 0.1 0.1"/>
         </geometry>
         <material name="white"/>
       </visual>
       <collision>
         <geometry>
-          <box size="${baselen} .1 .1"/>
+          <box size="${baselen} 0.1 0.1"/>
         </geometry>
       </collision>
       <xacro:default_inertial mass="10"/>
@@ -148,7 +148,7 @@
     <parent link="base_link"/>
     <child link="gripper_pole"/>
     <limit effort="1000.0" lower="-${width*2-.02}" upper="0" velocity="0.5"/>
-    <origin rpy="0 0 0" xyz="${width-.01} 0 .2"/>
+    <origin rpy="0 0 0" xyz="${width-.01} 0 0.2"/>
     <limit effort="30" velocity="0.2"/>
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
@@ -156,17 +156,17 @@
   <link name="gripper_pole">
     <visual>
       <geometry>
-        <cylinder length="${polelen}" radius=".01"/>
+        <cylinder length="${polelen}" radius="0.01"/>
       </geometry>
       <origin xyz="${polelen/2} 0 0" rpy="0 ${pi/2} 0 "/>
     </visual>
     <collision>
       <geometry>
-        <cylinder length="${polelen}" radius=".01"/>
+        <cylinder length="${polelen}" radius="0.01"/>
       </geometry>
       <origin xyz="${polelen/2} 0 0" rpy="0 ${pi/2} 0 "/>
     </collision>
-    <xacro:default_inertial mass=".05"/>
+    <xacro:default_inertial mass="0.05"/>
   </link>
 
   <transmission name="gripper_extension_trans" type="SimpleTransmission">
@@ -202,7 +202,7 @@
         </geometry>
         <origin rpy="${(reflect-1)/2*pi} 0 0" xyz="0 0 0"/>
       </collision>
-      <xacro:default_inertial mass=".05"/>
+      <xacro:default_inertial mass="0.05"/>
     </link>
     <transmission name="${prefix}_gripper_trans" type="SimpleTransmission">
       <type>transmission_interface/SimpleTransmission</type>
@@ -231,7 +231,7 @@
         </geometry>
         <origin rpy="${(reflect-1)/2*pi} 0 0" xyz="0.09137 0.00495 0"/>
       </collision>
-      <xacro:default_inertial mass=".05"/>
+      <xacro:default_inertial mass="0.05"/>
     </link>
   </xacro:macro>
 
@@ -277,14 +277,14 @@
   <link name="box">
     <visual>
       <geometry>
-        <box size=".08 .08 .08"/>
+        <box size="0.08 0.08 0.08"/>
       </geometry>
       <material name="blue"/>
       <origin xyz="-0.04 0 0"/>
     </visual>
     <collision>
       <geometry>
-        <box size=".08 .08 .08"/>
+        <box size="0.08 0.08 0.08"/>
       </geometry>
     </collision>
     <xacro:default_inertial mass="1"/>

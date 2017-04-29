@@ -11,7 +11,7 @@
   <link name="right_leg">
     <visual>
       <geometry>
-        <box size="0.6 .1 .2"/>
+        <box size="0.6 0.1 0.2"/>
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 -0.3"/>
     </visual>
@@ -20,7 +20,7 @@
   <joint name="base_to_right_leg" type="fixed">
     <parent link="base_link"/>
     <child link="right_leg"/>
-    <origin xyz="0 -0.22 .25"/>
+    <origin xyz="0 -0.22 0.25"/>
   </joint>
 
 </robot>
