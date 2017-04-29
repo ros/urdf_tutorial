@@ -26,7 +26,7 @@
   <link name="right_leg">
     <visual>
       <geometry>
-        <box size="0.6 .2 .1"/>
+        <box size="0.6 .1 .2"/>
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 -0.3"/>
       <material name="white"/>
@@ -42,7 +42,7 @@
   <link name="left_leg">
     <visual>
       <geometry>
-        <box size="0.6 .2 .1"/>
+        <box size="0.6 .1 .2"/>
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 -0.3"/>
       <material name="white"/>
