@@ -43,7 +43,6 @@
     <xacro:default_inertial mass="10"/>
   </link>
 
-
   <xacro:macro name="wheel" params="prefix suffix reflect">
 
     <link name="${prefix}_${suffix}_wheel">
