@@ -52,14 +52,12 @@
           <cylinder radius="${wheeldiam/2}" length="0.1"/>
         </geometry>
         <material name="black"/>
-        <origin xyz="0 0 0" rpy="0 0 0" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
         <geometry>
           <cylinder radius="${wheeldiam/2}" length="0.1"/>
         </geometry>
-        <origin xyz="0 0 0" rpy="0 0 0" />
       </collision>
       <xacro:default_inertial mass="1"/>
     </link>
@@ -82,7 +80,7 @@
 
     <!-- This block connects the wheel joint to an actuator (motor), which informs both
     simulation and visualization of the robot -->
-    <transmission name="${prefix}_${suffix}_wheel_trans" type="SimpleTransmission">
+    <transmission name="${prefix}_${suffix}_wheel_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <actuator name="${prefix}_${suffix}_wheel_motor">
         <mechanicalReduction>1</mechanicalReduction>
@@ -169,7 +167,7 @@
     <xacro:default_inertial mass="0.05"/>
   </link>
 
-  <transmission name="gripper_extension_trans" type="SimpleTransmission">
+  <transmission name="gripper_extension_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="gripper_extension_motor">
       <mechanicalReduction>1</mechanicalReduction>
@@ -204,7 +202,7 @@
       </collision>
       <xacro:default_inertial mass="0.05"/>
     </link>
-    <transmission name="${prefix}_gripper_trans" type="SimpleTransmission">
+    <transmission name="${prefix}_gripper_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <actuator name="${prefix}_gripper_motor">
         <mechanicalReduction>1</mechanicalReduction>
@@ -264,7 +262,7 @@
 
   <!-- This block connects the head_swivel joint to an actuator (motor), which informs both
   simulation and visualization of the robot -->
-  <transmission name="head_swivel_trans" type="SimpleTransmission">
+  <transmission name="head_swivel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="$head_swivel_motor">
       <mechanicalReduction>1</mechanicalReduction>
