@@ -1,0 +1,20 @@
+<package>
+  <name>urdf_tutorial</name>
+  <version>0.2.5</version>
+
+  <description>This package contains a number of URDF tutorials.</description>
+  <author email="davidvlu@gmail.com">David V. Lu!!</author>
+
+  <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
+
+  <license>BSD</license>
+  <url>http://ros.org/wiki/urdf_tutorial</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>xacro</run_depend>
+
+</package>
