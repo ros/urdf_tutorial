@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="r2d2" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="first_transmission_with_limits" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:property name="width" value="0.2" />
   <xacro:property name="leglen" value="0.6" />
