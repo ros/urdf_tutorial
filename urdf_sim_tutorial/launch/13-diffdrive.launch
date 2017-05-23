@@ -1,0 +1,34 @@
+<launch>
+  <arg name="model" default="$(find urdf_sim_tutorial)/urdf/13-diffdrive.urdf.xacro"/>
+  <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
+
+  <include file="$(find urdf_sim_tutorial)/launch/gazebo.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+
+  <rosparam command="load"
+            file="$(find urdf_sim_tutorial)/config/joints.yaml"
+            ns="r2d2_joint_state_controller" />
+  <rosparam command="load"
+            file="$(find urdf_sim_tutorial)/config/head.yaml"
+            ns="r2d2_head_controller" />
+  <rosparam command="load"
+            file="$(find urdf_sim_tutorial)/config/gripper.yaml"
+            ns="r2d2_gripper_controller" />
+  <rosparam command="load"
+            file="$(find urdf_sim_tutorial)/config/diffdrive.yaml"
+            ns="r2d2_diff_drive_controller" />
+
+  <node name="r2d2_controller_spawner" pkg="controller_manager" type="spawner"
+    args="r2d2_joint_state_controller
+          r2d2_head_controller
+          r2d2_gripper_controller
+          r2d2_diff_drive_controller
+          --shutdown-timeout 3"/>
+
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+    <param name="default_topic" value="/r2d2_diff_drive_controller/cmd_vel"/>
+  </node>
+</launch>
