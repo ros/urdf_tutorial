@@ -1,6 +1,6 @@
 <package>
   <name>urdf_tutorial</name>
-  <version>0.2.5</version>
+  <version>0.3.0</version>
 
   <description>This package contains a number of URDF tutorials.</description>
   <author email="davidvlu@gmail.com">David V. Lu!!</author>

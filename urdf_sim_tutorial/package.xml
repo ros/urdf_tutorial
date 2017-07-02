@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>urdf_sim_tutorial</name>
-  <version>0.2.5</version>
+  <version>0.3.0</version>
   <description>The urdf_sim_tutorial package</description>
   <author email="davidvlu@gmail.com">David V. Lu!!</author>
   <author email="paul@bovbel.com">Paul Bovbel</author>
