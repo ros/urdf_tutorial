@@ -1,13 +1,16 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.5)
 project(urdf_tutorial)
 
-find_package(catkin REQUIRED)
-catkin_package()
+find_package(ament_cmake REQUIRED)
 
-if(CATKIN_ENABLE_TESTING)
-  find_package(roslaunch REQUIRED)
-  roslaunch_add_file_check(launch)
+install(
+  DIRECTORY images launch meshes rviz urdf
+  DESTINATION share/${PROJECT_NAME}
+)
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
 endif()
 
-install(DIRECTORY images meshes launch rviz urdf
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+ament_package()
