@@ -58,7 +58,6 @@
         <cylinder length="0.1" radius="0.035"/>
       </geometry>
       <material name="black"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
   </link>
   <joint name="right_front_wheel_joint" type="continuous">
