@@ -1,48 +1,58 @@
-import launch
-from launch.substitutions import Command, LaunchConfiguration
-import launch_ros
-import os
+from ament_index_python.packages import get_package_share_path
 
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.conditions import IfCondition, UnlessCondition
+from launch.substitutions import Command, LaunchConfiguration
+
+from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
-    pkg_share = launch_ros.substitutions.FindPackageShare(package='urdf_tutorial').find('urdf_tutorial')
-    default_model_path = os.path.join(pkg_share, 'urdf/01-myfirst.urdf')
-    default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf.rviz')
+    urdf_tutorial_path = get_package_share_path('urdf_tutorial')
+    default_model_path = urdf_tutorial_path / 'urdf/01-myfirst.urdf'
+    default_rviz_config_path = urdf_tutorial_path / 'rviz/urdf.rviz'
 
-    robot_state_publisher_node = launch_ros.actions.Node(
+    ld = LaunchDescription()
+    ld.add_action(DeclareLaunchArgument(name='gui', default_value='true', choices=['true', 'false'],
+                                        description='Flag to enable joint_state_publisher_gui'))
+    ld.add_action(DeclareLaunchArgument(name='model', default_value=default_model_path,
+                                        description='Absolute path to robot urdf file'))
+    ld.add_action(DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
+                                        description='Absolute path to rviz config file'))
+
+    robot_description = ParameterValue(Command(['xacro ', LaunchConfiguration('model')]),
+                                       value_type=str)
+
+    robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        parameters=[{'robot_description': Command(['xacro ', LaunchConfiguration('model')])}]
+        parameters=[{'robot_description': robot_description}]
     )
-    joint_state_publisher_node = launch_ros.actions.Node(
+    ld.add_action(robot_state_publisher_node)
+
+    # Depending on gui parameter, either launch joint_state_publisher or joint_state_publisher_gui
+    joint_state_publisher_node = Node(
         package='joint_state_publisher',
         executable='joint_state_publisher',
-        name='joint_state_publisher',
-        condition=launch.conditions.UnlessCondition(LaunchConfiguration('gui'))
+        condition=UnlessCondition(LaunchConfiguration('gui'))
     )
-    joint_state_publisher_gui_node = launch_ros.actions.Node(
+    ld.add_action(joint_state_publisher_node)
+
+    joint_state_publisher_gui_node = Node(
         package='joint_state_publisher_gui',
         executable='joint_state_publisher_gui',
-        name='joint_state_publisher_gui',
-        condition=launch.conditions.IfCondition(LaunchConfiguration('gui'))
+        condition=IfCondition(LaunchConfiguration('gui'))
     )
-    rviz_node = launch_ros.actions.Node(
+    ld.add_action(joint_state_publisher_gui_node)
+
+    rviz_node = Node(
         package='rviz2',
         executable='rviz2',
         name='rviz2',
         output='screen',
         arguments=['-d', LaunchConfiguration('rvizconfig')],
     )
+    ld.add_action(rviz_node)
 
-    return launch.LaunchDescription([
-        launch.actions.DeclareLaunchArgument(name='gui', default_value='True',
-                                             description='Flag to enable joint_state_publisher_gui'),
-        launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_path,
-                                             description='Absolute path to robot urdf file'),
-        launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
-                                             description='Absolute path to rviz config file'),
-        joint_state_publisher_node,
-        joint_state_publisher_gui_node,
-        robot_state_publisher_node,
-        rviz_node
-    ])
+    return ld
