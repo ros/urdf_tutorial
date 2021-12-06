@@ -2,8 +2,8 @@
 Changelog for package urdf_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.0 (2021-12-06)
+------------------
 * Fixing a problem that failed the startup of launch file of this package on my ROS2 Galactic installation (`#53 <https://github.com/ros/urdf_tutorial/issues/53>`_)
 * Rebasing Commits from ROS 1 Branch (`#51 <https://github.com/ros/urdf_tutorial/issues/51>`_)
 * Updated launch file (`#50 <https://github.com/ros/urdf_tutorial/issues/50>`_)
