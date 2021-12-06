@@ -2,6 +2,15 @@
 Changelog for package urdf_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fixing a problem that failed the startup of launch file of this package on my ROS2 Galactic installation (`#53 <https://github.com/ros/urdf_tutorial/issues/53>`_)
+* Rebasing Commits from ROS 1 Branch (`#51 <https://github.com/ros/urdf_tutorial/issues/51>`_)
+* Updated launch file (`#50 <https://github.com/ros/urdf_tutorial/issues/50>`_)
+* Updated rviz to rviz2 in package.xml (`#49 <https://github.com/ros/urdf_tutorial/issues/49>`_)
+* Port over to ROS2 foxy (`#45 <https://github.com/ros/urdf_tutorial/issues/45>`_)
+* Contributors: Arturs Elksnis, David V. Lu!!, Kuni Natsuki, Leo Stanislas
+
 0.2.5 (2017-04-28)
 ------------------
 * New ROS Control Tutorial
