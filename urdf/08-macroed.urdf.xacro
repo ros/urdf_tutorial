@@ -7,7 +7,6 @@
   <xacro:property name="bodylen" value="0.6" />
   <xacro:property name="baselen" value="0.4" />
   <xacro:property name="wheeldiam" value="0.07" />
-  <xacro:property name="pi" value="3.1415" />
 
   <material name="blue">
     <color rgba="0 0 0.8 1"/>
