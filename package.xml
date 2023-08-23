@@ -6,7 +6,7 @@
   <description>This package contains a number of URDF tutorials.</description>
   <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
 
-  <license>BSD</license>
+  <license>BSD 3-clause</license>
   <url>http://ros.org/wiki/urdf_tutorial</url>
   <author email="davidvlu@gmail.com">David V. Lu!!</author>
 
