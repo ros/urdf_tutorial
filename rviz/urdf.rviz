@@ -4,17 +4,14 @@ Panels:
   - Class: rviz_common/Views
     Name: Views
 Visualization Manager:
-  Class: ""
   Displays:
     - Class: rviz_default_plugins/Grid
       Name: Grid
       Value: true
     - Alpha: 0.8
       Class: rviz_default_plugins/RobotModel
-      Description Source: Topic
       Description Topic:
         Value: /robot_description
-      Enabled: true
       Name: RobotModel
       Value: true
     - Class: rviz_default_plugins/TF
@@ -22,8 +19,6 @@ Visualization Manager:
       Value: true
   Global Options:
     Fixed Frame: base_link
-    Frame Rate: 30
-  Name: root
   Tools:
     - Class: rviz_default_plugins/MoveCamera
   Value: true
