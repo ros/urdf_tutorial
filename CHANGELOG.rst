@@ -2,8 +2,8 @@
 Changelog for package urdf_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.0 (2023-09-29)
+------------------
 * Precommit configuration (`#64 <https://github.com/ros/urdf_tutorial/issues/64>`_)
 * Use urdf_launch package (`#65 <https://github.com/ros/urdf_tutorial/issues/65>`_)
 * Add gazebo export to package.xml and tidy up package.xml (`#63 <https://github.com/ros/urdf_tutorial/issues/63>`_)
