@@ -2,6 +2,16 @@
 Changelog for package urdf_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Precommit configuration (`#64 <https://github.com/ros/urdf_tutorial/issues/64>`_)
+* Use urdf_launch package (`#65 <https://github.com/ros/urdf_tutorial/issues/65>`_)
+* Add gazebo export to package.xml and tidy up package.xml (`#63 <https://github.com/ros/urdf_tutorial/issues/63>`_)
+* More reasonable inertia values. (`#58 <https://github.com/ros/urdf_tutorial/issues/58>`_)
+* upgrade dae files (`#60 <https://github.com/ros/urdf_tutorial/issues/60>`_) (`#61 <https://github.com/ros/urdf_tutorial/issues/61>`_)
+* Add in a LICENSE file. (`#57 <https://github.com/ros/urdf_tutorial/issues/57>`_)
+* Contributors: Andreas Bihlmaier, Chris Lalancette, David V. Lu!!
+
 1.0.0 (2021-12-06)
 ------------------
 * Fixing a problem that failed the startup of launch file of this package on my ROS2 Galactic installation (`#53 <https://github.com/ros/urdf_tutorial/issues/53>`_)
