@@ -20,7 +20,7 @@ def generate_launch_description():
     ld.add_action(rviz_arg)
 
     # This parameter has changed its meaning slightly from previous versions
-    ld.add_action(DeclareLaunchArgument(name='model', default_value=str(default_model_path),
+    ld.add_action(DeclareLaunchArgument(name='model', default_value=default_model_path,
                                         description='Path to robot urdf file relative to urdf_tutorial package'))
 
     ld.add_action(IncludeLaunchDescription(
