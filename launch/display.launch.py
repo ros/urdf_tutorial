@@ -24,7 +24,7 @@ def generate_launch_description():
                                         description='Path to robot urdf file relative to urdf_tutorial package'))
 
     ld.add_action(IncludeLaunchDescription(
-        PathJoinSubstitution([FindPackageShare('urdf_launch'), 'launch', 'display.launch.py']),
+        PathJoinSubstitution([FindPackageShare('urdf_tutorial'), 'launch', 'display.launch.py']),
         launch_arguments={
             'urdf_package': 'urdf_tutorial',
             'urdf_package_path': LaunchConfiguration('model'),
