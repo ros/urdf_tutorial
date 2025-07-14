@@ -35,7 +35,7 @@
     <parent link="base_link"/>
     <child link="right_wheel_link"/>
   </joint>
-  
+
   <!-- Left wheel link -->
   <link name="left_wheel_link">
     <visual>
@@ -46,14 +46,14 @@
       <material name="green"/>
     </visual>
   </link>
-  
+
     <!-- Left wheel joint -->
   <joint name="left_wheel_joint" type="continuous">
     <origin xyz="-0.5 0.6 0.2" rpy="1.57 0 0"/>
     <parent link="base_link"/>
     <child link="left_wheel_link"/>
   </joint>
-  
+
   <link name="caster_link">
     <visual>
         <geometry>
