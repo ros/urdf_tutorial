@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot name="your_robot">
+
+
+  <!-- Reusable green material -->
+  <material name="green">
+    <color rgba="0.2 1 0.2 1"/>
+  </material>
+
+  <!-- Base link -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.25"/>
+      <geometry>
+        <box size="1.5 1 0.25"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+ <!-- Right wheel link -->
+  <link name="right_wheel_link">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.2" radius="0.2"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+<!-- Right wheel joint -->
+  <joint name="right_wheel_joint" type="continuous">
+    <origin xyz="-0.5 -0.6 0.2" rpy="1.57 0 0"/>
+    <parent link="base_link"/>
+    <child link="right_wheel_link"/>
+  </joint>
+  
+  <!-- Left wheel link -->
+  <link name="left_wheel_link">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.2" radius="0.2"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+  
+    <!-- Left wheel joint -->
+  <joint name="left_wheel_joint" type="continuous">
+    <origin xyz="-0.5 0.6 0.2" rpy="1.57 0 0"/>
+    <parent link="base_link"/>
+    <child link="left_wheel_link"/>
+  </joint>
+  
+  <link name="caster_link">
+    <visual>
+        <geometry>
+        <sphere radius="0.08"/>
+        </geometry>
+    </visual>
+  </link>
+
+  <joint name="caster_joint" type='fixed'>
+  <origin xyz="0.6 0 0.075"/>
+    <parent link="base_link"/>
+    <child link="caster_link"/>
+  </joint>
+
+</robot>
