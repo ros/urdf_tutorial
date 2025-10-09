@@ -23,10 +23,10 @@ repos:
     args:
     - --write-changes
   rev: v2.4.1
-- repo: https://github.com/pre-commit/mirrors-autopep8
+- repo: https://github.com/hhatto/autopep8
   hooks:
   - id: autopep8
-  rev: v2.0.4
+  rev: v2.3.2
 - repo: https://github.com/PyCQA/flake8
   hooks:
   - id: flake8
