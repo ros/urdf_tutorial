@@ -4,11 +4,11 @@
   <name>urdf_tutorial</name>
   <version>1.1.0</version>
   <description>This package contains a number of URDF tutorials.</description>
-  <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
+  <maintainer email="david@metrorobots.com">David V. Lu!!</maintainer>
 
   <license>BSD 3-clause</license>
   <url>http://ros.org/wiki/urdf_tutorial</url>
-  <author email="davidvlu@gmail.com">David V. Lu!!</author>
+  <author email="david@metrorobots.com">David V. Lu!!</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <exec_depend>urdf_launch</exec_depend>
