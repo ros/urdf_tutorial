@@ -8,7 +8,7 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     urdf_tutorial_path = FindPackageShare('urdf_tutorial')
-    default_model_path = PathJoinSubstitution(['urdf', '01-myfirst.urdf'])
+    default_model_path = '01-myfirst.urdf'
     default_rviz_config_path = PathJoinSubstitution([urdf_tutorial_path, 'rviz', 'urdf.rviz'])
 
     # These parameters are maintained for backwards compatibility
@@ -27,7 +27,7 @@ def generate_launch_description():
         PathJoinSubstitution([FindPackageShare('urdf_launch'), 'launch', 'display.launch.py']),
         launch_arguments={
             'urdf_package': 'urdf_tutorial',
-            'urdf_package_path': LaunchConfiguration('model'),
+            'urdf_package_path': PathJoinSubstitution(['urdf', LaunchConfiguration('model')]),
             'rviz_config': LaunchConfiguration('rvizconfig'),
             'jsp_gui': LaunchConfiguration('gui')}.items()
     ))
