@@ -22,7 +22,7 @@ repos:
   - id: codespell
     args:
     - --write-changes
-  rev: v2.4.1
+  rev: v2.4.2
 - repo: https://github.com/hhatto/autopep8
   hooks:
   - id: autopep8
